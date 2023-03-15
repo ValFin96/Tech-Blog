@@ -7,8 +7,8 @@ router.get('/', withAuth, async (req, res) => {
         console.log("Hello from dashboard routes");
         const postData = await Post.findAll({
             where:{
-                userId: req.session.user_id,
-                include: [User]
+                user_id: req.session.user_id,
+                // include: [User]
             },
         });
         const posts = postData.map((post) => post.get({ plain: true }));
