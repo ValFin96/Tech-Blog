@@ -4,6 +4,7 @@ const { Post, Comment, User } = require('../models');
 // get all posts for homepage
 router.get('/', async (req, res) => {
     try {
+        // console.log(req.session.logged_in);
         const postData = await Post.findAll({
             include: [User],
         });
@@ -13,6 +14,19 @@ router.get('/', async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+
+router.get('/login', (req, res) => {
+    // If the user is already logged in, redirect the request to another route
+    console.log(req.session.logged_in, "check logged in");
+    if (req.session.logged_in) {
+        res.redirect('/dashboard');
+        return;
+    }
+
+    res.render('login');
+});
+
 
 // get single post
 router.get('/:id', async (req, res) => {
@@ -26,7 +40,7 @@ router.get('/:id', async (req, res) => {
                 },
             ],
         });
-        // chec with mini project 
+        // chec with mini project
         res.render('single-post', {
             layout: 'main',
         });
