@@ -1,18 +1,18 @@
 const router = require('express').Router();
 const { Post, User } = require('../models');
-const withAuth = require ('../utils/auth');
+const withAuth = require('../utils/auth');
 
 router.get('/', withAuth, async (req, res) => {
-    try{
-        console.log("Hello from dashboard routes");
+    console.log("Trying to create a post")
+    try {
         const postData = await Post.findAll({
-            where:{
+            where: {
                 user_id: req.session.user_id,
                 // include: [User]
             },
         });
         const posts = postData.map((post) => post.get({ plain: true }));
-        
+
         res.render('all-posts-admin', {
             layout: 'dashboard',
             posts,
@@ -28,16 +28,16 @@ router.get('/new', withAuth, (req, res) => {
     });
 });
 
-router.get('/edit/:id', withAuth, async (req,res) => {
-    try{
+router.get('/edit/:id', withAuth, async (req, res) => {
+    try {
         const postData = await Post.finbByPK({
-            where:{
+            where: {
                 postId: req.params.id,
             },
-            });
+        });
 
-        if(postData){
-            const postData = postData.get ({ plain: true });
+        if (postData) {
+            const postData = postData.get({ plain: true });
 
             res.render('edit-post', {
                 layout: 'dashboard',
