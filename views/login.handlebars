@@ -4,16 +4,19 @@
 
         <form class="form login-form">
             <div class="form-group">
-                <label for="email-login">username:</label>
-                <input class="form-input" type="text" id="username" />
+                <label for="email-login">Username:</label>
+                <input type="text" class="form-control" id="username" aria-describedby="username" placeholder="Enter username">
             </div>
+
             <div class="form-group">
-                <label for="password-login">password:</label>
-                <input class="form-input" type="password" id="password" />
+                <label for="password-login">Password:</label>
+                <input type="password" class="form-control" id="password" placeholder="Password">
             </div>
-            <div class="form-group">
-                <button class="btn btn-primary" id ="loginBtn" type="submit">login</button>
-            </div>
+
+             <button type="submit" id ="loginBtn" class="btn btn-primary">Login</button>
+             <br>
+             <br>
+            <button type="submit" id ="signupBtn" class="btn btn-primary">Signup</button>
         </form>
     </div>
     

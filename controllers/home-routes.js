@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
             include: [User],
         });
         const posts = postData.map((post) => post.get({ plain: true }));
-        res.render('all-posts', { posts });
+        res.render('all-posts', { posts, logged_in: req.session.logged_in });
     } catch (err) {
         res.status(500).json(err);
     }
@@ -45,11 +45,20 @@ router.get('/:id', async (req, res) => {
         res.render('single-post', {
             layout: 'main',
             postData,
+            logged_in: req.session.logged_in
         });
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
+router.get('/signup', async (req, res) => {
+    console.log('signup route is here')
+    try {
+        res.render('signup');
+    } catch (err) {
+        res.statusMessage(500).json(err);
+    }
+});
 
 module.exports = router;
