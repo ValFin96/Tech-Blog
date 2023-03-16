@@ -27,6 +27,15 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
+router.get('/signup', async (req, res) => {
+    console.log('signup route is here')
+    try {
+        res.render('signup');
+    } catch (err) {
+        res.statusMessage(500).json(err);
+    }
+});
+
 
 // get single post
 router.get('/:id', async (req, res) => {
@@ -52,13 +61,6 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.get('/signup', async (req, res) => {
-    console.log('signup route is here')
-    try {
-        res.render('signup');
-    } catch (err) {
-        res.statusMessage(500).json(err);
-    }
-});
+
 
 module.exports = router;
