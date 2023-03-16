@@ -29,14 +29,14 @@ router.get('/new', withAuth, (req, res) => {
 
 router.get('/edit/:id', withAuth, async (req, res) => {
     try {
-        const postData = await Post.finbByPK({
+        const postData = await Post.findOne({
             where: {
-                postId: req.params.id,
+                id: req.params.id,
             },
         });
 
         if (postData) {
-            const postData = postData.get({ plain: true });
+            const post = postData.get({ plain: true });
 
             res.render('edit-post', {
                 layout: 'dashboard',
