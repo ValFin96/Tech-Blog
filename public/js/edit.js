@@ -4,18 +4,25 @@ const editFormHandler = async function (event) {
     event.preventDefault();
 
     const title = dosument.querySelector('input[name="post-title"]').value;
-    const body = document.querySelector('textarea[name="post-body"]').value;
+    const content = document.querySelector('textarea[name="post-body"]').value;
 
-    await fetch(`/api/post/${postId}`, {
+    await fetch(`/api/edit/${postId}`, {
         method: 'PUT',
         body: JSON.stringify({
             title,
-            body
+            content,
         }),
         headers: {
             'Content-Type': 'application/json'
         }
     });
+    if (response.ok) {
+        console.log(title);
+        console.log(content);
+        document.location.replace('/dashboard')
+    } else {
+        alert('Failed to update.');
+    }
 
     document.location.replace('/dashboard');
 };

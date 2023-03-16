@@ -3,7 +3,6 @@ const { Post, User } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', withAuth, async (req, res) => {
-    console.log("Trying to create a post")
     try {
         const postData = await Post.findAll({
             where: {
