@@ -40,7 +40,6 @@ router.get('/:id', async (req, res) => {
                 },
             ],
         });
-        // chec with mini project
         res.render('single-post', {
             layout: 'main',
         });
