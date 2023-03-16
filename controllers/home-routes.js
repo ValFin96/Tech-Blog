@@ -29,46 +29,27 @@ router.get('/login', (req, res) => {
 
 
 // get single post
-// router.get('/:id', async (req, res) => {
-//     try {
-//         const postData = await Post.findByPk(req.params.id, {
-//             include: [
-//                 User,
-//                 {
-//                     model: Comment,
-//                     include: [User],
-//                 },
-//             ],
-//         });
-//         res.render('single-post', {
-//             layout: 'main',
-//             postData,
-//         });
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// });
-
 router.get('/:id', async (req, res) => {
     try {
-        const postData = await Post.findByPk(req.params.id);
-        const commentData = await Comment.findAll({
-            where: {
-                id: req.params.id
-            },
-            include: [{model: User}],
-        })
-        const comments = commentData.map((post) => post.get({plain: true}));
-        const singlePost = postData.get({ plain: true})
+        const post = await Post.findByPk(req.params.id, {
+            include: [
+                User,
+                {
+                    model: Comment,
+                    include: [User],
+                },
+            ],
+        });
+        const postData = post.get({ plain: true });
+        console.log(postData);
         res.render('single-post', {
-            ...singlePost,
-            comments,
-            logged_in: req.session.logged_in
+            layout: 'main',
+            postData,
         });
     } catch (err) {
-        console.log(err)
         res.status(500).json(err);
     }
 });
+
 
 module.exports = router;

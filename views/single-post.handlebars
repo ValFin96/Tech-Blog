@@ -2,10 +2,10 @@
   <div class="card-header  flex-row justify-space-between">
     <h2>
       <a href="/{{id}}">
-        <div class="col-8">{{title}}</div>
+        <div class="col-8">{{postData.title}}</div>
       </a>
     </h2>
-    <div class="col-3">posted by {{user.username}} on {{format_date createdAt}}
+    <div class="col-3">posted by {{postData.user.username}} on {{format_date postData.createdAt}}
     </div>
   </div>  
   <p class="card-body">
@@ -14,6 +14,7 @@
 </div>
 <input type="hidden" name="post-id" value="{{id}}"/>
 
+{{#if logged_in}}
 <div class="card">
   <div class="card-header"></div>
   <form class="card-body" id="new-comment-form">
@@ -22,7 +23,8 @@
     <textarea class="form-input" id="comment-body" name="comment-body"></textarea>
     <button type="submit" class="btn btn-primary">Submit:</button>
   </form>
-{{> comments postData.comments}}
+{{> comments postData.Comments}}
 </div>
+{{/if}}
 
 <script src="/js/comment.js"></script>
